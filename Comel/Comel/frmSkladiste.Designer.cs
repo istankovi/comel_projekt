@@ -49,6 +49,7 @@
             this.btnObrisiKategoriju = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtKolicina = new System.Windows.Forms.TextBox();
+            this.btnObrisi = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.itemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comel_dbDataSet)).BeginInit();
@@ -58,6 +59,7 @@
             // dgvItems
             // 
             this.dgvItems.AllowUserToAddRows = false;
+            this.dgvItems.AllowUserToDeleteRows = false;
             this.dgvItems.AutoGenerateColumns = false;
             this.dgvItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvItems.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -74,7 +76,6 @@
             this.dgvItems.Size = new System.Drawing.Size(759, 286);
             this.dgvItems.TabIndex = 0;
             this.dgvItems.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvItems_CellEndEdit);
-            this.dgvItems.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.dgvItems_RowsRemoved);
             // 
             // iditemDataGridViewTextBoxColumn
             // 
@@ -220,11 +221,22 @@
             this.txtKolicina.TabIndex = 10;
             this.txtKolicina.Text = "0";
             // 
+            // btnObrisi
+            // 
+            this.btnObrisi.Location = new System.Drawing.Point(308, 329);
+            this.btnObrisi.Name = "btnObrisi";
+            this.btnObrisi.Size = new System.Drawing.Size(158, 23);
+            this.btnObrisi.TabIndex = 11;
+            this.btnObrisi.Text = "Obriši odabranu stavku";
+            this.btnObrisi.UseVisualStyleBackColor = true;
+            this.btnObrisi.Click += new System.EventHandler(this.btnObrisi_Click);
+            // 
             // frmSkladiste
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 362);
+            this.Controls.Add(this.btnObrisi);
             this.Controls.Add(this.txtKolicina);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnObrisiKategoriju);
@@ -272,5 +284,6 @@
         private System.Windows.Forms.Button btnObrisiKategoriju;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtKolicina;
+        private System.Windows.Forms.Button btnObrisi;
     }
 }

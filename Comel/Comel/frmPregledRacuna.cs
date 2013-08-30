@@ -18,8 +18,11 @@ namespace Comel
 
         private void frmPregledRacuna_Load(object sender, EventArgs e)
         {
+            // This line of code loads data into the 'comel_dbDataSet.stavkaracuna' table.
+            this.stavkaracunaTableAdapter.Fill(this.comel_dbDataSet.stavkaracuna);
             // This line of code loads data into the 'comel_dbDataSet.racun' table.
             this.racunTableAdapter.Fill(this.comel_dbDataSet.racun);
+
             if (txtRacun.SelectedValue != null)
             {
                 int racunID = (int)txtRacun.SelectedValue;
@@ -36,6 +39,14 @@ namespace Comel
                 this.RacuniTableAdapter.FillByID(this.comel_dbDataSet.Racuni, racunID); 
             } 
                 this.reportViewer1.RefreshReport(); 
+        }
+
+        private void btnObrisi_Click(object sender, EventArgs e)
+        {
+            if (txtRacun.SelectedValue == null) return;
+            this.stavkaracunaTableAdapter.ObrisiStavkeRacunaID((int)txtRacun.SelectedValue); // obrisi sve stavke ovog racuna
+            this.racunTableAdapter.ObrisiRacunByID((int)txtRacun.SelectedValue); // obrisi sam racun
+            this.racunTableAdapter.Fill(this.comel_dbDataSet.racun); // refresh dataset za id racuna
         }
     }
 }

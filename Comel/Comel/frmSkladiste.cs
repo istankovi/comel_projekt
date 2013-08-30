@@ -57,11 +57,6 @@ namespace Comel
         {
             modificirano = 1;
         }
-        private void dgvItems_RowsRemoved(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            modificirano = 0;
-            itemsTableAdapter.Update(this.comel_dbDataSet.items);
-        }
 
         private void frmSkladiste_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -116,6 +111,20 @@ namespace Comel
         {
             frmStavke stavke = new frmStavke(Convert.ToInt32(cmbKat.SelectedValue));
             stavke.ShowDialog();
+            refresh_dgv();
+        }
+
+        private void btnObrisi_Click(object sender, EventArgs e)
+        {
+            int itemID = (int)dgvItems.SelectedRows[0].Cells[0].Value;
+            try
+            {
+                this.itemsTableAdapter.DeleteQueryByID(itemID); // update baze
+            }
+            catch
+            {
+                MessageBox.Show("Ne mozete obrisati stavku jer se nalazi na nekom od postojecih racuna");
+            }
             refresh_dgv();
         }
     }

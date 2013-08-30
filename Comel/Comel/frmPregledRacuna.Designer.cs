@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource1 = new Microsoft.Reporting.WinForms.ReportDataSource();
+            Microsoft.Reporting.WinForms.ReportDataSource reportDataSource3 = new Microsoft.Reporting.WinForms.ReportDataSource();
             this.RacuniBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.comel_dbDataSet = new Comel.comel_dbDataSet();
             this.reportViewer1 = new Microsoft.Reporting.WinForms.ReportViewer();
@@ -38,9 +38,13 @@
             this.racunBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lblRacun = new System.Windows.Forms.Label();
             this.racunTableAdapter = new Comel.comel_dbDataSetTableAdapters.racunTableAdapter();
+            this.btnObrisi = new System.Windows.Forms.Button();
+            this.stavkaracunaBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.stavkaracunaTableAdapter = new Comel.comel_dbDataSetTableAdapters.stavkaracunaTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.RacuniBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.comel_dbDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.racunBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stavkaracunaBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // RacuniBindingSource
@@ -55,9 +59,9 @@
             // 
             // reportViewer1
             // 
-            reportDataSource1.Name = "Računi";
-            reportDataSource1.Value = this.RacuniBindingSource;
-            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource1);
+            reportDataSource3.Name = "Računi";
+            reportDataSource3.Value = this.RacuniBindingSource;
+            this.reportViewer1.LocalReport.DataSources.Add(reportDataSource3);
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "Comel.StavkeRačuna.rdlc";
             this.reportViewer1.Location = new System.Drawing.Point(13, 63);
             this.reportViewer1.Name = "reportViewer1";
@@ -113,11 +117,31 @@
             // 
             this.racunTableAdapter.ClearBeforeFill = true;
             // 
+            // btnObrisi
+            // 
+            this.btnObrisi.Location = new System.Drawing.Point(170, 19);
+            this.btnObrisi.Name = "btnObrisi";
+            this.btnObrisi.Size = new System.Drawing.Size(75, 23);
+            this.btnObrisi.TabIndex = 3;
+            this.btnObrisi.Text = "Obriši račun";
+            this.btnObrisi.UseVisualStyleBackColor = true;
+            this.btnObrisi.Click += new System.EventHandler(this.btnObrisi_Click);
+            // 
+            // stavkaracunaBindingSource
+            // 
+            this.stavkaracunaBindingSource.DataMember = "stavkaracuna";
+            this.stavkaracunaBindingSource.DataSource = this.comel_dbDataSet;
+            // 
+            // stavkaracunaTableAdapter
+            // 
+            this.stavkaracunaTableAdapter.ClearBeforeFill = true;
+            // 
             // frmPregledRacuna
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 475);
+            this.Controls.Add(this.btnObrisi);
             this.Controls.Add(this.lblRacun);
             this.Controls.Add(this.txtRacun);
             this.Controls.Add(this.reportViewer1);
@@ -131,6 +155,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.RacuniBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.comel_dbDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.racunBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.stavkaracunaBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -146,5 +171,8 @@
         private System.Windows.Forms.Label lblRacun;
         private System.Windows.Forms.BindingSource racunBindingSource;
         private comel_dbDataSetTableAdapters.racunTableAdapter racunTableAdapter;
+        private System.Windows.Forms.Button btnObrisi;
+        private System.Windows.Forms.BindingSource stavkaracunaBindingSource;
+        private comel_dbDataSetTableAdapters.stavkaracunaTableAdapter stavkaracunaTableAdapter;
     }
 }

@@ -17,7 +17,7 @@ namespace Comel
         }
 
         private DateTime vrijeme_otvaranja_racuna;
-        private int racun_otvoren = 1;
+        private int racun_otvoren = 0;
         private int id_racun;
         private void frmNoviRacun_Load(object sender, EventArgs e)
         {
@@ -25,20 +25,21 @@ namespace Comel
             this.racunTableAdapter.Fill(this.comel_dbDataSet.racun);
             // This line of code loads data into the 'comel_dbDataSet.items' table.
             this.itemsTableAdapter.Fill(this.comel_dbDataSet.items);
-            
-            vrijeme_otvaranja_racuna = DateTime.Now;
-            this.racunTableAdapter.Insert(vrijeme_otvaranja_racuna, Varijable.tip_korisnika); //otvori racun s vremenom i korisnikom koji ga otvara
-
-            id_racun = Convert.ToInt32(this.racunTableAdapter.VratiIDRacuna(vrijeme_otvaranja_racuna, Varijable.tip_korisnika)); // buduci da je racun ID inkremenatalan, vraca ID novog racuna
-            
-            txtRacun.Text = txtRacun.Text + "\r\nVrijeme: " + vrijeme_otvaranja_racuna.ToString() + "\r\n";
-            txtRacun.Text = txtRacun.Text + "\r\nStavka\tKoličina\tCijena\r\n\r\n";
         }
 
         private void btnDodajNaRacun_Click(object sender, EventArgs e)
         {
             foreach (DataRow row in this.comel_dbDataSet.items) // prolazi sve iteme u bazi
             {
+                if (racun_otvoren == 0)
+                {
+                    vrijeme_otvaranja_racuna = DateTime.Now;
+                    this.racunTableAdapter.Insert(vrijeme_otvaranja_racuna, Varijable.tip_korisnika); //otvori racun s vremenom i korisnikom koji ga otvara
+                    id_racun = Convert.ToInt32(this.racunTableAdapter.VratiIDRacuna(vrijeme_otvaranja_racuna, Varijable.tip_korisnika)); // buduci da je racun ID inkremenatalan, vraca ID novog racuna
+                    txtRacun.Text = txtRacun.Text + "\r\nVrijeme: " + vrijeme_otvaranja_racuna.ToString() + "\r\n";
+                    txtRacun.Text = txtRacun.Text + "\r\nStavka\tKoličina\tCijena\r\n\r\n";
+                    racun_otvoren = 1;
+                }
                 int kolicina;
                 if (int.TryParse(txtKolicina.Text, out kolicina))
                 {
@@ -84,12 +85,11 @@ namespace Comel
             foreach (DataRow row in this.comel_dbDataSet.stavkaracuna) // obrisi sve stavke racuna prvo
             {
                 if (id_racun == Convert.ToInt32(row["racun_id"]))  // ako stavka pripada ovom racunu
-                {
-                    this.stavkaracunaTableAdapter.ObrisiStavkeRacunaID(id_racun);
+                {      
                     this.itemsTableAdapter.PromjeniKolicinu(Convert.ToInt32(row["kolicina"]), Convert.ToInt32(row["item_id"])); // uvecaj kolicinu na skladistu buduci da brisemo racun
-                    
                 }
             }
+            this.stavkaracunaTableAdapter.ObrisiStavkeRacunaID(id_racun); // obrisi sve stavke racuna
             this.racunTableAdapter.DeleteQuery(vrijeme_otvaranja_racuna, Varijable.tip_korisnika); // obrisi sam racun
         }
 
